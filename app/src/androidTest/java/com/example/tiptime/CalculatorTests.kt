@@ -31,6 +31,19 @@ class CalculatorTests {
     }
 
     @Test
+    fun calculate_20_percent_no_rounded_tip() {
+        onView(withId(R.id.cost_of_service_edit_text))
+            .perform(typeText("49.00"))
+
+        onView(withId(R.id.round_up_switch)).perform(click())
+
+        onView(withId(R.id.calculate_button)).perform(click())
+
+        onView(withId(R.id.tip_result))
+            .check(matches(withText(containsString("9.80"))))
+    }
+
+    @Test
     fun calculate_18_percent_tip() {
         onView(withId(R.id.cost_of_service_edit_text))
             .perform(typeText("100.00"))
@@ -44,6 +57,21 @@ class CalculatorTests {
     }
 
     @Test
+    fun calculate_18_percent_no_rounded_tip() {
+        onView(withId(R.id.cost_of_service_edit_text))
+            .perform(typeText("98.00"))
+
+        onView(withId(R.id.option_eighteen_percent)).perform(click())
+
+        onView(withId(R.id.round_up_switch)).perform(click())
+
+        onView(withId(R.id.calculate_button)).perform(click())
+
+        onView(withId(R.id.tip_result))
+            .check(matches(withText(containsString("17.64"))))
+    }
+
+    @Test
     fun calculate_15_percent_tip() {
         onView(withId(R.id.cost_of_service_edit_text))
             .perform(typeText("100.00"))
@@ -54,6 +82,21 @@ class CalculatorTests {
 
         onView(withId(R.id.tip_result))
             .check(matches(withText(containsString("15.00"))))
+    }
+
+    @Test
+    fun calculate_15_percent_non_rounded_tip() {
+        onView(withId(R.id.cost_of_service_edit_text))
+            .perform(typeText("65.00"))
+
+        onView(withId(R.id.option_fifteen_percent)).perform(click())
+
+        onView(withId(R.id.round_up_switch)).perform(click())
+
+        onView(withId(R.id.calculate_button)).perform(click())
+
+        onView(withId(R.id.tip_result))
+            .check(matches(withText(containsString("9.75"))))
     }
 
 }
